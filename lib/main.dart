@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     initPref();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 0), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Splash Screen',
+          '',
           style: TextStyle(fontSize: 20),
         ),
       ),
