@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:word_card/utils/constants.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({Key? key}) : super(key: key);
@@ -86,33 +87,34 @@ class _CardScreenState extends State<CardScreen> {
         padding: const EdgeInsets.all(50),
         child: Stack(
           children: [
-            GestureDetector(
-              onTap: onTapWordCard,
-              child: Container(
-                decoration: BoxDecoration(
+            Container(
+              decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(20),
-                child: Center(
-                  child: Text(
-                    randomWord,
-                    style: const TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFFE55870),
-                    ),
+                  border: Border.all(
+                    color: Colors.black,
+                  )),
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                child: Text(
+                  randomWord,
+                  style: const TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black87,
                   ),
                 ),
               ),
             ),
-            isLoading
-                ? SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: const Center(child: CircularProgressIndicator()),
-                  )
-                : Container(),
+            TextButton(
+              onPressed: onTapWordCard,
+              child: Container(),
+              style: const ButtonStyle(
+                animationDuration: Duration(milliseconds: 15),
+                overlayColor:
+                    MaterialStatePropertyAll<Color>(kColorAccentAlpha),
+              ),
+            ),
           ],
         ),
       ),

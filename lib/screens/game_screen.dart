@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:word_card/models/card_game_model.dart';
+import 'package:word_card/utils/constants.dart';
 import 'package:word_card/widgets/score_card.dart';
 
 class GameScreen extends StatefulWidget {
@@ -22,6 +23,10 @@ class _GameScreenState extends State<GameScreen> {
     final words = prefs.getStringList('words');
 
     if (words != null) {
+      if (words.length > 8) {
+        words.shuffle();
+        words.removeRange(8, words.length);
+      }
       for (int i = 0; i < 2; i++) {
         for (String value in words) {
           CardGameModel model = CardGameModel(value, false, false);
@@ -75,11 +80,11 @@ class _GameScreenState extends State<GameScreen> {
         const SizedBox(
           height: 25,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [ScoreCard("시도", '$tries'), ScoreCard("점수", "$score")],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [ScoreCard("시도", '$tries'), ScoreCard("점수", "$score")],
+        // ),
         Expanded(
           child: SizedBox(
             width: width,
@@ -182,7 +187,10 @@ class _GameScreenState extends State<GameScreen> {
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600),
                               )
-                            : const Icon(Icons.question_mark),
+                            : const Icon(
+                                Icons.star_outline,
+                                color: kColorHotPint,
+                              ),
                       ),
                     ),
                   );

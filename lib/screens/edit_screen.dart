@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:word_card/utils/constants.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({Key? key}) : super(key: key);
@@ -63,7 +64,7 @@ class _EditScreenState extends State<EditScreen> {
                   child: ListTile(
                     title: Text(wordSet.toList()[index]),
                     trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Color(0xFFE55870)),
+                      icon: const Icon(Icons.delete, color: kColorHotPint),
                       onPressed: () => _onDelete(index),
                     ),
                   ),
@@ -79,9 +80,13 @@ class _EditScreenState extends State<EditScreen> {
             children: [
               Expanded(
                 child: TextField(
+                  cursorColor: kColorHotPint,
                   controller: teController,
                   decoration: const InputDecoration(
                     hintText: '단어를 입력해주세요.',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(width: 1, color: kColorHotPint),
+                    ),
                   ),
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:word_card/utils/constants.dart';
 
 import 'models/screen_model.dart';
 
@@ -12,7 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: SplashScreen());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    );
   }
 }
 
@@ -24,9 +29,42 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future initPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFinishAddWord = prefs.getBool('AddWord') ?? false;
+    if (!isFinishAddWord) {
+      List<String> wordList = [
+        '기차',
+        '거북이',
+        '나비',
+        '다람쥐',
+        '바나나',
+        '닭',
+        '버스',
+        '피아노',
+        '부엉이',
+        '토끼',
+        '당근',
+        '수박',
+        '토마토',
+        '복숭아',
+        '딸기',
+        '치즈',
+        '돼지',
+        '피자',
+        '튤립',
+        '호박',
+      ];
+      prefs.setStringList('words', wordList);
+      prefs.setBool('AddWord', true);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    initPref();
+
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
@@ -63,15 +101,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFE55870),
-        title: Text(_screens.firstWhere((element) => element.isSelected).title),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: const Color(0xFFE55870),
+      //   title: Text(_screens.firstWhere((element) => element.isSelected).title),
+      // ),
       bottomNavigationBar: buildBottomNavigationBar(),
-      backgroundColor: const Color(0xFFE55870),
+      backgroundColor: kColorAccent,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const SizedBox(
+            height: 40,
+          ),
           Expanded(
             child: _screens.firstWhere((element) => element.isSelected).screen,
           ),
