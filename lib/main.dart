@@ -29,6 +29,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  bool isInit = false;
+
   Future initPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isFinishAddWord = prefs.getBool('AddWord') ?? false;
@@ -58,13 +61,6 @@ class _SplashScreenState extends State<SplashScreen> {
       prefs.setStringList('words', wordList);
       prefs.setBool('AddWord', true);
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initPref();
-
     Future.delayed(const Duration(seconds: 0), () {
       Navigator.pushReplacement(
         context,
@@ -73,6 +69,12 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initPref();
   }
 
   @override
