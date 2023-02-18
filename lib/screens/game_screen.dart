@@ -62,6 +62,7 @@ class _GameScreenState extends State<GameScreen> {
           emptyWord,
           style: const TextStyle(
             fontSize: 24,
+            color: Colors.white,
           ),
         ),
       );

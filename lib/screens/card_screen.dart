@@ -77,6 +77,7 @@ class _CardScreenState extends State<CardScreen> {
         child: Text(emptyWord,
             style: const TextStyle(
               fontSize: 24,
+              color: Colors.white,
             )),
       );
     }
