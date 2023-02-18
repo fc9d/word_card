@@ -101,7 +101,8 @@ class _GameScreenState extends State<GameScreen> {
                   return GestureDetector(
                     onTap: () {
                       if (wordList[index].isOpen ||
-                          wordList[index].isComplete) {
+                          wordList[index].isComplete ||
+                          matchChecked.length >= 2) {
                         return;
                       }
                       wordList[index].isOpen = true;
